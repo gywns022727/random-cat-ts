@@ -9,7 +9,6 @@ import Button from "../../components/Button";
 Modal.setAppElement("#root");
 
 export default function Index() {
-  const [cats, setCats] = useState<GetCatsResponse[]>([]); // 고양이 사진 data들을 담아놓을 state
   const [isOpen, setIsOpen] = useState<boolean>(false); // Modal의 상태를 담아놓은 state
 
   const { data, isFetching, refetch } = useQuery(["cats"], getCats); // react-query를 사용하여 고양이 사진 가져오는 api를 실행함
@@ -23,13 +22,6 @@ export default function Index() {
   const handleOpenModal = () => setIsOpen(true); // Modal의 상태를 true(보여줌)으로 바꿔주는 함수
   const handleCloseModal = () => setIsOpen(false); // Modal의 상태를 false(숨김)으로 바꿔주는 함수
 
-  // 위에서 쓰는 data가 변경 될 때마다 밑의 함수가 실행됨
-  useEffect(() => {
-    if (!data) return; // data가 undefined 일 수 있어서 if문으로 걸러줌
-    setCats(data); // data가 값이 온전히 있으면 cats에 담아줌
-    // console.log({ data });
-  }, [data]);
-
   return (
     <Container>
       <Title>간식 모음</Title>
@@ -37,15 +29,16 @@ export default function Index() {
         새로고침
       </Button>
       {isFetching && <div>로디중입니다...</div>}
-      {!isFetching && (
+      {!isFetching && data && (
         <List>
-          {cats.map(({ id, url }) => {
-            return (
-              <Item key={id} onClick={handleOpenModal}>
-                <Img src={url} alt={id} />
-              </Item>
-            );
-          })}
+          {data &&
+            data.map(({ id, url }) => {
+              return (
+                <Item key={id} onClick={handleOpenModal}>
+                  <Img src={url} alt={id} />
+                </Item>
+              );
+            })}
         </List>
       )}
       <Modal
