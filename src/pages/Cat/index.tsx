@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query";
 import Modal from "react-modal";
 import { getCats } from "../../api/getCats";
-import { GetCatsResponse } from "../../api/getCats";
 import { Container, Title, List, Item, Img } from "./styled";
 import Button from "../../components/Button";
 
