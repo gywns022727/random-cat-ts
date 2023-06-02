@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import type { CSSProperties } from "react";
 
 export const Container = styled.div`
   margin: 0 auto;
@@ -33,8 +34,8 @@ export const Item = styled.li`
   }
 `;
 
-export const Img = styled.img`
+export const Img = styled.img<{ objectFit?: CSSProperties["objectFit"] }>`
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  ${({ objectFit }) => objectFit && `object-fit: ${objectFit};`}
 `;
