@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import { useQuery } from "react-query";
 import Modal from "react-modal";
 import { getCats } from "../../api/getCats";
@@ -41,7 +41,7 @@ export default function Index() {
         <List>
           {data &&
             data.map(({ id, url }, index) => {
-              if (index > 8) return <></>;
+              if (index > 8) return <Fragment key={id} />;
               const itemClick = () => handleOpenModal(url);
 
               return (
